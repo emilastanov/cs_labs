@@ -1,50 +1,76 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Shapes;
 using SparseMatrix;
+using ShapesCollections;
 
-namespace lab4
+namespace lab3
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Rectangle rctngl = new Rectangle(10, 15);
-            Square sqr = new Square(10);
-            Circle crcl = new Circle(5*Math.Sqrt(5)/Math.Sqrt(Math.PI));
+            #region Объекты классов Rectangle, Square и Circle
+            Rectangle rect = new Rectangle(12, 22);
+            Square square = new Square(24);
+            Circle circle = new Circle(11);
+            #endregion
 
-            ArrayList arrList = new ArrayList();
-            arrList.Add(rctngl);
-            arrList.Add(sqr);
-            arrList.Add(crcl);
+            #region Коллекция класса ArrayList
+            Console.WriteLine("Отсортированный необобщенный список");
 
-            Console.WriteLine("ArrayList without sort:\n");
-            foreach (var figure in arrList) Console.WriteLine(figure);
+            ArrayList shapesArrList = new ArrayList();
+            shapesArrList.Add(rect);
+            shapesArrList.Add(square);
+            shapesArrList.Add(circle);
 
-            arrList.Sort();
+            shapesArrList.Sort();
 
-            Console.WriteLine("\n\nSorted ArrayList:\n");
-            foreach (var figure in arrList) Console.WriteLine(figure);
+            foreach (var shape in shapesArrList)
+                Console.WriteLine(shape);
+            #endregion
 
-            List<Figure> figureList = new List<Figure>();
-            figureList.Add(rctngl);
-            figureList.Add(sqr);
-            figureList.Add(crcl);
+            #region Коллекция класса List<Shape>
+            Console.WriteLine("\nОтсортированный обобщенный список");
 
-            Console.WriteLine("\n\nList<Figure> without sort:\n");
-            foreach (var figure in figureList) Console.WriteLine(figure);
+            List<Shape> shapeList = new List<Shape>();
+            shapeList.Add(rect);
+            shapeList.Add(square);
+            shapeList.Add(circle);
 
-            figureList.Sort();
+            shapeList.Sort();
 
-            Console.WriteLine("\n\nSorted List<Figure>:\n");
-            foreach (var figure in figureList) Console.WriteLine(figure);
+            foreach (var shape in shapeList)
+                Console.WriteLine(shape);
+            #endregion
 
-            Matrix3D<Figure> cube = new Matrix3D<Figure>(3, 3, 3, null);
-            cube[0, 0, 0] = rctngl;
-            cube[1, 1, 1] = sqr;
-            cube[2, 2, 2] = crcl;
-            Console.WriteLine(cube.ToString());
-           
+            #region Пример работы разрежённой матрицы Matrix3D<Shape>
+            Console.WriteLine("\nМатрица");
+
+            Matrix3D<Shape> matrix = new Matrix3D<Shape>(3, 3, 3, new ShapeMatrixCheckEmpty());
+            matrix[0, 0, 0] = rect;
+            matrix[1, 1, 1] = square;
+            matrix[2, 2, 2] = circle;
+
+            Console.WriteLine(matrix);
+            #endregion
+
+            #region Пример работы класса SimpleStack
+            Console.WriteLine("Стек");
+
+            SimpleStack<Shape> stack = new SimpleStack<Shape>();
+            stack.Push(rect);
+            stack.Push(square);
+            stack.Push(circle);
+
+            while (stack.Count > 0)
+            {
+                Shape shape = stack.Pop();
+                Console.WriteLine(shape);
+            }
+            #endregion
+
             Console.ReadKey();
         }
     }
