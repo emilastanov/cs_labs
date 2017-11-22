@@ -11,13 +11,10 @@ namespace lab3
     {
         static void Main(string[] args)
         {
-            #region Объекты классов Rectangle, Square и Circle
             Rectangle rect = new Rectangle(12, 22);
             Square square = new Square(24);
             Circle circle = new Circle(11);
-            #endregion
 
-            #region Коллекция класса ArrayList
             Console.WriteLine("Отсортированный необобщенный список");
 
             ArrayList shapesArrList = new ArrayList();
@@ -29,9 +26,8 @@ namespace lab3
 
             foreach (var shape in shapesArrList)
                 Console.WriteLine(shape);
-            #endregion
 
-            #region Коллекция класса List<Shape>
+
             Console.WriteLine("\nОтсортированный обобщенный список");
 
             List<Shape> shapeList = new List<Shape>();
@@ -43,9 +39,7 @@ namespace lab3
 
             foreach (var shape in shapeList)
                 Console.WriteLine(shape);
-            #endregion
 
-            #region Пример работы разрежённой матрицы Matrix3D<Shape>
             Console.WriteLine("\nМатрица");
 
             Matrix3D<Shape> matrix = new Matrix3D<Shape>(3, 3, 3, new ShapeMatrixCheckEmpty());
@@ -54,9 +48,7 @@ namespace lab3
             matrix[2, 2, 2] = circle;
 
             Console.WriteLine(matrix);
-            #endregion
 
-            #region Пример работы класса SimpleStack
             Console.WriteLine("Стек");
 
             SimpleStack<Shape> stack = new SimpleStack<Shape>();
@@ -69,7 +61,6 @@ namespace lab3
                 Shape shape = stack.Pop();
                 Console.WriteLine(shape);
             }
-            #endregion
 
             Console.ReadKey();
         }
